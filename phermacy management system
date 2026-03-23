@@ -1,0 +1,1226 @@
+SCOPE
+Request the development of a Pharmacy Management System (PMS) to modernize the traditional pharmacy
+operations currently dependent on manual registers, paper-based billing, inconsistent stock management
+methods, and non-integrated invoicing systems.
+• A complete POS-driven medication billing system
+• Centralized inventory with batch, expiry, and MRP tracking
+• Supplier and purchase order management
+• Customer and membership management
+• Printer and label QR/barcode configuration
+• Multi-branch operations
+• Advanced reporting and auditing functionality
+The PMS eliminates the limitations associated with paper systems, reduces human error, enables real-time
+pharmaceutical compliance, and supports rapid, accurate pharmacy operations.
+Four core concepts are encompassed within the system’s general scope:
+1. Replacement of paper-based billing with a digital POS
+2. Centralized batch-wise inventory and expiry tracking
+3. Supplier, purchase, and inward stock digitalization
+4. A robust store-wise admin panel for pharmacy supervision
+This document focuses on the software, its internal and external interfaces, expected behavior, and interactions
+among users, systems, and modules.
+1.1 OVERVIEW
+The Pharmacy Management System is a modern, responsive, MERN-based application designed to streamline
+all workflows of standalone and multi-branch pharmacies. It covers user registration, inventory onboarding,
+supplier management, store configuration, medicine purchase entry, POS billing, and reporting analytics.
+The PMS ensures:
+• Accurate batch-wise medicine dispensing
+• Automatic stock reconciliation
+• Integration with QR/Barcode printers
+• High-level compliance with pharmaceutical sales laws
+• Role-based access for store staff
+• Real-time GST computation
+The system includes full activity logging, audit trails, and error-handling mechanisms to address exceptional
+circumstances such as cancelled bills, stock mismatches, or expiry recalls.
+Pharmacists and store operators are provided with an intuitive POS GUI for fast medicine searching, scanning,
+batch selection, and billing.
+Admins can monitor multi-store activity, manage stock transfers, configure pricing rules, and generate
+regulatory reports.
+1.2 OBJECTIVES
+Primary Objectives
+• To implement a digital pharmacy billing and inventory system that reduces manual workload
+• To enable accurate, real-time tracking of medicines using batch, expiry, and GST data
+• To automate stock inward, adjustments, audits, and low-stock triggers
+• To deliver a fully controlled environment for store owners and admins
+• To reduce operational losses due to expired medicines, stock mismatch, or unbilled sales
+• To ensure compliance with pharmaceutical regulations
+Return on Investment (ROI) Metrics
+Initially:
+• Reduce billing time by up to 70%
+• Achieve 95%+ accuracy in stock tracking
+• Reduce expired stock loss by up to 40%
+• Achieve 80%+ user adoption (cashiers, pharmacists, managers)
+Future:
+• Onboard multiple stores under a single chain
+• Enable near real-time inter-branch stock transfers
+• Build a centralized medicine master reusable for future pharmacy networks
+General Capacity Metrics
+• System designed to support tens of thousands of SKUs
+• Concurrent user support per store: 50+ users
+• Cloud-scalable infrastructure capable of supporting chain pharmacies
+General Usability Metrics
+• POS interface optimized for speed, clarity, and single-hand operation
+• Ability to scan medicine via barcode/QR for instant identification
+• User interface easy enough for 18–60+ year-old operators
+1.3 LIMITATIONS
+Primary Objectives
+• To implement a digital pharmacy billing and inventory system that reduces manual workload
+• To enable accurate, real-time tracking of medicines using batch, expiry, and GST data
+• To automate stock inward, adjustments, audits, and low-stock triggers
+• To deliver a fully controlled environment for store owners and admins
+• To reduce operational losses due to expired medicines, stock mismatch, or unbilled sales
+• To ensure compliance with pharmaceutical regulations
+Return on Investment (ROI) Metrics
+Initially:
+• Reduce billing time by up to 70%
+• Achieve 95%+ accuracy in stock tracking
+• Reduce expired stock loss by up to 40%
+• Achieve 80%+ user adoption (cashiers, pharmacists, managers)
+Future:
+• Onboard multiple stores under a single chain
+• Enable near real-time inter-branch stock transfers
+• Build a centralized medicine master reusable for future pharmacy networks
+General Capacity Metrics
+• System designed to support tens of thousands of SKUs
+• Concurrent user support per store: 50+ users
+• Cloud-scalable infrastructure capable of supporting chain pharmacies
+General Usability Metrics
+• POS interface optimized for speed, clarity, and single-hand operation
+• Ability to scan medicine via barcode/QR for instant identification
+• User interface easy enough for 18–60+ year-old operators
+1.4 BENEFITS
+Primary benefits of the Pharmacy Management System include:
+• Complete digitization of billing and stock workflows
+• Improved accuracy by eliminating manual bookkeeping
+• Batch, expiry, and GST auto-handling
+• Dynamic stock updates with real-time visibility
+• Fast & accurate medicine search via barcode or typing
+• Enhanced auditability with every action logged
+• Easier compliance with regulatory and tax requirements
+• Higher business productivity and reduced operational losses
+SECTION 2 — SOFTWARE REQUIREMENTS SPECIFICATION
+2.1 PURPOSE OF SRS
+This SRS provides the functional and non-functional requirements for the Pharmacy Management System. It
+defines the complete behavior of the system, user interactions, constraints, input/output formats, and validation
+rules.
+The SRS serves as:
+• A blueprint for developers
+• A reference for the client
+• A baseline for project planning and implementation
+• A contractual agreement for project expectations
+2.2 PURPOSE OF THE APPLICATION
+The PMS is intended to offer a unified, reliable, automated solution for:
+• POS-based medicine billing
+• Batch-wise inventory management
+• Supplier and purchase entry digitization
+• GST-compliant invoice management
+• Customer & membership management
+• Multi-store monitoring and reporting
+The SRS ensures the system meets qualities such as correctness, completeness, unambiguousness, verifiability,
+modifiability, and traceability.
+2.3 PROCESSES INVOLVED
+Processes covered in scope include:
+• User Registration
+• Store Registration & Setup
+• Staff Login / Role-based Authentication
+• POS Billing Workflow
+• Stock Inward (Purchase / GRN)
+• Stock Audit & Adjustment
+• Supplier Management
+• Customer Management & Membership
+• Printer Setup & Label Printing
+• Branch Management
+• Sales, Tax, and Inventory Reporting
+Process flows for POS and pharmacy staff will mirror the structure shown in the reference design flow pages.
+2.4 FUNCTIONAL REQUIREMENTS
+IMPORTANT:
+• General
+• Cashier/Staff
+• Pharmacy/Store
+• Admin
+• Inventory
+• Supplier
+• Reporting
+• Printer
+• POS
+2.4.1 GENERAL REQUIREMENTS (G)
+ID Requirement Description
+G1 A server shall host the PMS and manage all processing & storage.
+G2 A POS interface shall provide staff with all billing functionalities.
+G3 A dashboard shall provide pharmacy/store users with operational controls as per role.
+G4 The system shall support integration with printers and barcode/QR scanners.
+G5 The system shall maintain complete logs for every transaction.
+G6 The system shall prevent sale of expired medicines.
+2.4.2 CUSTOMER REQUIREMENTS (POS / CASHIER)
+ID Description
+P01 Staff must log in before using POS. Fingerprint login (optional) for future sessions.
+P02 Staff shall be able to search medicines by name, salt, brand, barcode.
+P03 The system shall show all available batches with expiry, MRP, stock.
+P04 Staff shall be able to add medicines to cart.
+P05 Staff shall be able to remove medicines from cart.
+P06 Staff shall be able to modify quantity.
+P07 System shall prevent sale if stock is insufficient.
+P08 System shall show prescription-required medicines with alerts.
+P09 Staff shall be able to cancel the bill before payment.
+P10 In billing mode, POS shall display GST splits clearly.
+P11 Staff receives notification if item is discontinued or out of stock.
+P12 Staff shall be able to apply membership discounts.
+P13 Staff shall select payment mode: Cash / Card / UPI / Credit Customer.
+P14 POS shall allow split payments.
+P15 Staff shall enter customer details when required.
+P16 Staff shall print duplicate bill if authorized.
+P17 Staff shall edit customer phone number and details at checkout.
+P18 Staff shall park bills (hold) for later checkout.
+P19 Staff shall return medicines (with batch tracking).
+P20 POS shall support scanning QR/Barcode labels.
+2.4.3 STORE REQUIREMENTS (PHARMACY MODULE)
+ID Requirement Description
+S01 Store shall be able to CRUD products with category, brand, salt, HSN.
+S02 Store shall view all orders generated through POS.
+ID Requirement Description
+S03 Store shall be able to approve/hold/cancel specific bills.
+S04 Store shall manage price overrides (with admin permissions).
+S05 Store shall set operating hours.
+S06 Store shall manage multiple user roles (cashier, pharmacist, manager).
+S07 Store shall configure membership plans.
+S08 Store shall configure discount rules.
+S09 Store shall manage inventory adjustments.
+S10 Store shall view income summary.
+S11 Store shall generate advanced reports based on day/week/month/year.
+S12 Store shall add branches.
+S13 Branch panel shall be available for each store.
+S14 Store shall activate/inactivate branches.
+S15 Store shall view area-wise sales.
+S16 Store shall see payment method-wise reports.
+S17 Store shall add brand-wise offers.
+S18 Store shall track returns and cancelled invoices.
+S19 Store shall monitor staff performance.
+2.4.4 ADMIN REQUIREMENTS (A)
+ID Requirement Description
+A1 Admin shall manage users (add/remove/modify roles).
+A2 Admin shall manage all stores.
+A3 Admin shall manage accounting setup (GST, financial year).
+A4 Admin shall CRUD master product list.
+A5 Admin shall manage store licensing and compliance documents.
+A6 Admin shall view transaction logs and activity logs.
+A7 Admin shall manage inter-branch stock transfers.
+A8 Admin shall manage global offers and pricing rules.
+A9 Admin shall configure promo codes.
+A10 Admin shall view reports based on store, branch, date, user.
+A11 Admin shall manage inventory policies (thresholds, expiry rules).
+A12 Admin shall configure printer and label settings globally.
+2.5 INVENTORY & PURCHASE REQUIREMENTS
+Inventory
+ID Description
+I1 System shall store Product → Batch → Expiry → MRP → Stock mapping.
+I2 System shall not allow billing of expired stock.
+I3 System shall generate alerts for: Near-expiry / Low stock / Zero stock.
+I4 Inventory valuation shall be computed based on FIFO/LIFO.
+ID Description
+I5 Stock Audit shall be supported with variance logs.
+Purchase & GRN
+ID Description
+GR1 Supplier shall be selected for each purchase entry.
+GR2 Batch details must be added at the time of GRN.
+GR3 GRN must support barcode printing.
+GR4 GRN stock posting shall update inventory instantly.
+GR5 GRN disputes (wrong batch/expiry) shall be logged.
+2.6 SUPPLIER MANAGEMENT REQUIREMENTS
+ID Description
+SP1 Add/Edit/remove supplier.
+SP2 Track supplier GSTIN, contact, address.
+SP3 Maintain credit days & outstanding balance.
+SP4 Store supplier-wise purchase history.
+SP5 Generate statements for suppliers.
+2.7 PRINTER & LABEL MANAGEMENT
+ID Description
+PR1 Configure POS thermal printer.
+PR2 Configure label printer.
+PR3 Generate QR/Barcode labels.
+PR4 Customize bill print template.
+PR5 Print small/large labels.
+2.8 REPORTS MODULE REQUIREMENTS
+ID Description
+R1 Daily/weekly/monthly sales reports.
+R2 Payment mode-wise report.
+R3 GST summary report.
+R4 Expiry report (near, expired).
+ID Description
+R5 Low stock report.
+R6 Inventory valuation.
+R7 Staff performance report.
+R8 Discount and offer usage report.
+SECTION 3 — UML ANALYSIS MODEL
+3.1 INTRODUCTION
+The UML Analysis Model represents the functional behavior of the Pharmacy Management System by
+identifying major actors and their corresponding interactions with the system. It serves to illustrate the
+functional boundaries, responsibilities, and interactions across various user roles.
+The diagrams and narratives in this section are based on the functional requirements outlined in Section 2.4 and
+translate them into use-case representations that ensure clarity, completeness, and usability for analysis and
+implementation teams.
+Each use case is described with its own scope, participating actors, preconditions, postconditions, trigger events,
+success scenarios, alternate paths, and exception handling
+3.2 ACTORS
+3.2.1 POS Cashier (Primary Actor)
+The POS Cashier is responsible for executing billing activities, adding medicines to cart, applying discounts,
+and processing payments. The cashier interacts with the POS interface to complete customer transactions.
+3.2.2 Pharmacist (Secondary Actor)
+The Pharmacist performs approval-required activities, such as restricted medicine sale authorizations, reviewing
+batch validity, handling returns, conducting stock verifications, and overseeing accurate dispensing.
+3.2.3 Store Manager (Supporting Actor)
+The Manager is responsible for store operations including inventory oversight, GRN processing, stock
+validation, supplier handling, pricing rules, user management, and performance monitoring.
+3.2.4 Admin (System Owner Actor)
+The Admin manages multi-store setups, master data, global configurations, and cross-store reporting. Admin has
+highest level of privileges.
+3.2.5 Supplier (External Actor)
+The supplier interacts indirectly via PO and GRN workflows. Supplier data is referenced during procurement
+and invoice recording.
+3.2.6 Customer (External Actor)
+The customer is the beneficiary of POS services. Customer details may be captured during billing or
+membership registration.
+3.3 USE CASE DIAGRAM
+ +-------------------------+
+ | Admin |
+ +-------------------------+
+ / \
+ / \
+ v v
+ +----------------+ +-----------------+
+ | Store Manager | | Pharmacist |
+ +----------------+ +-----------------+
+ \ /
+ \ /
+ v v
+ +-------------------+
+ | POS Cashier |
+ +-------------------+
+ |
+ v
+ +-------------------------+
+ | Pharmacy Management |
+ | System |
+ +-------------------------+
+ / | | \
+ / | | \
+ v v v v
+ (POS Billing) (GRN) (Inventory) (Reports)
+ | | | |
+ v v v v
+ Customer Supplier Store/Data Admin/Manager
+3.4 USE CASE NARRATIVES
+UC-01: POS Billing
+Actors: Cashier, Pharmacist (if prescription check needed)
+Preconditions: Cashier logged in; POS online; product master loaded.
+Main Flow:
+1. Cashier scans barcode or searches medicine name.
+2. System displays available batches with MRP, expiry, GST, stock.
+3. Cashier selects batch and quantity — system validates stock and prescription requirement.
+4. If prescription-required, system prompts Pharmacist approval (sub-flow).
+5. Cashier adds items to cart; applies membership/promos if any.
+6. System computes GST line-wise and invoice total.
+7. Cashier selects payment mode (cash/card/UPI/credit/split).
+8. On successful payment, system prints bill and optional QR label; inventory reduces batch-wise.
+9. System logs transaction and updates reports.
+Alternative Flows:
+• A1: Insufficient stock → suggest other batch or disallow item.
+• A2: Return/Cancel before payment → cart clears, no stock change.
+Postconditions: Invoice created; stock updated; audit log entry made.
+UC-02: Good Received Note (GRN) Processing
+Actors: Store Manager / Pharmacist
+Preconditions: Purchase Order (PO) created (optional); supplier invoice available.
+Main Flow:
+1. Create PO or select existing PO.
+2. Add received items with batch number, MRP, expiry, quantity.
+3. System validates item SKU and suggests HSN/GST.
+4. Generate GRN; optionally print labels for batches (QR/barcode).
+5. On GRN confirmation, inventory updates; supplier outstanding updated.
+6. System logs GRN and links to supplier invoice.
+Alternative Flows:
+• Reject wrong batch → create discrepancy record and notify supplier.
+UC-03: Inventory Audit and Adjustment
+Actors: Store Manager, Pharmacist
+Main Flow:
+1. Trigger stock audit mode — generate expected stock listing by batch.
+2. Perform physical count and enter actual counts.
+3. System computes variances and requires reason for adjustments.
+4. On approval (manager), system adjusts inventory and logs reasons.
+UC-04: Stock Audit
+Primary Actor: Store Manager
+Success Flow:
+1. Initiate audit session.
+2. System generates expected batch-wise stock sheet.
+3. Physical count is entered.
+4. Variance generated.
+5. Manager approves adjustments.
+6. Inventory updated.
+UC-05: Supplier Management
+Flow: Add/edit supplier → Link with PO/GRN
+UC-06: Reports
+Flow: Select report → Apply filters → Export
+UC-07: User/Store Management
+Flow: Add store → Add users → Assign roles
+SECTION 4 — CLASS DIAGRAMS & DESCRIPTIONS
+4.1 INTRODUCTION
+The class diagram outlines the major components (classes) of the PMS, their responsibilities, attributes, and the
+relationships they maintain with other components. Each class encapsulates data and behavior relevant to its
+domain function.
+4.2 CLASS DIAGRAM 
+The system consists of the following primary classes:
+1. User
+2. Store
+3. Product
+4. Batch
+5. Inventory
+6. Invoice
+7. InvoiceItem
+8. Supplier
+9. PurchaseOrder
+10. GRN (Goods Received Note)
+11. Adjustment
+12. Report
+13. AuditLog
+These classes form the core model of the Pharmacy Management System and map directly to database
+documents (for MongoDB) and interactions within the PMS workflows.
+This representation shows:
+• One-to-many relationships
+• Shared entity dependencies
+• Store, User, Invoice, Product as primary pillars
+• Batch-level associations and stock management flow
+Each class is described using:
+• Class Name
+• Attributes
+• Methods / Responsibilities
+• Relationships
+• Description
+4.3.1 CLASS: User
+Description:
+Represents any system operator, including Cashier, Pharmacist, Store Manager, and Admin. Controls role-based
+access and authentication.
+Attributes:
+• userId: Unique identifier for the user
+• storeId: Associated store
+• name: Full name of user
+• username: Login username
+• passwordHash: Secure hashed password
+• role: Cashier / Pharmacist / Manager / Admin
+• contact: Phone or email
+• status: Active / Inactive
+• lastLogin: Timestamp
+Methods / Responsibilities:
+• authenticateUser()
+• authorizeAction()
+• updateProfile()
+• resetPassword()
+• logActivity()
+Relationships:
+• A Store has many Users
+• A User may generate many Invoices
+• A User may perform stock adjustments, GRN entries, audits
+4.3.2 CLASS: Store
+Description:
+Represents a pharmacy location, including address, GST information, and printer setup.
+Attributes:
+• storeId
+• name
+• address
+• GSTIN
+• contact_info
+• printerSettings
+• timings
+• status
+Methods / Responsibilities:
+• updateStoreSettings()
+• configurePrinter()
+• manageUsers()
+Relationships:
+• Contains Users
+• Contains Inventory and Batch Data
+• Has many Invoices
+• Has many GRNs
+4.3.3 CLASS: Product
+Description:
+Represents a medicine or a pharmaceutical product.
+Attributes:
+• productId
+• productName
+• brandName
+• saltComposition
+• HSNCode
+• requiresPrescription (boolean)
+• defaultUnit
+• category
+• status
+Methods:
+• searchProduct()
+• updateMasterData()
+Relationships:
+• A Product has many Batches
+• A Product appears in InvoiceItem and Inventory records
+4.3.4 CLASS: Batch
+Description:
+Represents each batch of a medicine. Batch-level tracking is mandatory for a pharmacy.
+Attributes:
+• batchId
+• productId
+• batchNumber
+• expiryDate
+• MRP
+• purchasePrice
+• GSTPercent
+• stockQty
+• manufactureDate
+• status (Expired/Active)
+Methods:
+• decrementStock()
+• incrementStock()
+• isExpired()
+• daysToExpiry()
+Relationships:
+• Belongs to a Product
+• Appears in InvoiceItems and GRNs
+• Appears in Stock Adjustments
+4.3.5 CLASS: Inventory
+Description:
+Represents stock quantities for each batch within the store.
+Attributes:
+• inventoryId
+• storeId
+• productId
+• batchId
+• quantityAvailable
+Methods:
+• updateQuantity()
+• getStockDetails()
+Relationships:
+• Inventory connects Store → Product → Batch
+4.3.6 CLASS: Invoice
+Description:
+Represents a completed POS transaction.
+Attributes:
+• invoiceId
+• storeId
+• userId
+• customerId
+• invoiceDate
+• totalAmount
+• taxAmount
+• discountAmount
+• paymentMode
+• status
+Methods:
+• computeTotals()
+• printInvoice()
+• updateInventory()
+Relationships:
+• Has many InvoiceItems
+• Linked to Batch and Product indirectly
+4.3.7 CLASS: InvoiceItem
+Description:
+Represents a single line item in an invoice.
+Attributes:
+• itemId
+• invoiceId
+• productId
+• batchId
+• quantity
+• price
+• tax
+• lineTotal
+Relationships:
+• Belongs to Invoice
+• Links Product & Batch to invoice
+4.3.8 CLASS: Supplier
+Attributes:
+• supplierId
+• name
+• GSTIN
+• address
+• creditDays
+• contact
+• outstandingBalance
+Methods:
+• updateOutstanding()
+• viewPurchaseHistory()
+Relationships:
+• Supplier is linked to Purchase Orders and GRNs
+4.3.9 CLASS: PurchaseOrder
+Description:
+Represents a PO placed with a supplier.
+Attributes:
+• poId
+• supplierId
+• expectedItems[]
+• status
+• poDate
+Methods:
+• addItem()
+• updateStatus()
+4.3.10 CLASS: GRN (Goods Received Note)
+Description:
+Represents stock receiving entry.
+Attributes:
+• grnId
+• supplierId
+• items[]
+• receivedBy
+• grnDate
+• totalValue
+Methods:
+• generateBatches()
+• postToInventory()
+4.3.11 CLASS: Adjustment
+Description:
+Represents stock adjustment events.
+Attributes:
+• adjustmentId
+• productId
+• batchId
+• quantity
+• reason
+• approvedBy
+Relationships:
+• Linked to User, Batch, and Inventory
+4.3.12 CLASS: Report
+Attributes:
+• reportId
+• reportType
+• filters
+• generatedBy
+• generatedOn
+Methods:
+• exportPDF()
+• exportExcel()
+4.3.13 CLASS: AuditLog
+Attributes:
+• logId
+• userId
+• action
+• timestamp
+• details
+Methods:
+• recordEvent()
+• retrieveLogs()
+SECTION 5 — DESIGN FLOW
+The flows included:
+1. 5.1 POS Billing Flow
+2. 5.2 GRN (Goods Received Note) Flow
+3. 5.3 Supplier Management Flow
+4. 5.4 Inventory Management Flow
+5. 5.5 Reports Flow
+6. 5.6 Store & Admin Flow
+Each flow includes:
+• Entry point
+• Screens involved
+• User actions
+• System responses
+• Validations & exceptions
+• Completion state
+The design flow behaves like a logical walkthrough of the application screens.
+5.1 POS BILLING FLOW
+POS Flow Overview
+Login → POS Dashboard → Search/Scan Medicine → Batch Selection → Cart View →
+Apply Discount/Membership → Payment Selection → Generate Invoice → Print Bill
+5.1.1 User Login Screen
+Inputs:
+• Username
+• Password
+User Actions:
+• Cashier enters credentials
+• Clicks “Login”
+System Response:
+• Validates credentials
+• Loads POS Dashboard
+• Displays user role and assigned store
+Exceptions:
+• Invalid login → Error message
+• Inactive account → Access blocked
+5.1.2 POS Dashboard
+Elements Seen:
+• Search bar
+• Barcode scan input
+• Medicine list
+• Batch list (hidden until selection)
+• Cart section
+• Payment button
+• Customer info button
+• Real-time stock indicator
+User Actions:
+• Cashier initiates billing
+• Searches medicine by name OR scans barcode
+System Response:
+• Displays matching medicines
+• Shows all batches with expiry, MRP, GST
+5.1.3 Batch Selection Screen
+Displayed to the User:
+• Batch number
+• Expiry
+• MRP
+• Stock quantity available
+• GST rate
+User Actions:
+• Select a batch
+• Enter quantity
+System Response:
+• Validates expiry
+• Validates quantity
+• Calculates item total
+Exceptions:
+• Expired batch → “Cannot Bill”
+• Quantity > stock → “Insufficient Stock”
+5.1.4 Cart View
+Elements Shown:
+• Item list
+• Quantity and batch details
+• Tax breakup
+• Discount field
+User Actions:
+• Add more medicines
+• Update quantities
+• Remove items
+• Apply discount/membership
+System Response:
+• Updates totals
+• Recalculates GST
+• Checks validations
+5.1.5 Customer Details (Optional)
+User Actions:
+• Add customer mobile number
+• Retrieve membership points
+System Response:
+• Auto fetch customer profile
+• Apply membership benefits (if eligible)
+5.1.6 Payment Screen
+Payment Modes:
+• Cash
+• Card
+• UPI
+• Wallet
+• Split Payment
+• Credit (if enabled)
+User Actions:
+• Select payment option
+• Enter payment amount
+System Response:
+• Processes payment
+• Confirms transaction
+Exceptions:
+• Payment failure → Return to payment screen
+5.1.7 Invoice Generation Screen
+System Actions:
+• Create invoice record
+• Deduct inventory batch-wise
+• Update sales reports
+• Generate invoice number
+• Open “Print Preview”
+5.1.8 Print Invoice
+User Actions:
+• Click “Print”
+System Response:
+• Prints thermal bill
+• Marks transaction completed
+Flow Completion:
+• Cart reset
+• POS ready for next transaction
+5.2 GRN (GOODS RECEIVED NOTE) FLOW
+GRN Flow Overview
+Login → GRN Dashboard → Select Supplier → Select PO (optional) → Enter Item Details →
+Enter Batch Information → Validate → Confirm GRN → Print Labels → Update Inventory
+5.2.1 GRN Dashboard
+Displayed Items:
+• List of pending POs
+• List of previous GRNs
+• “Create New GRN” button
+User Actions:
+• Manager selects “Create GRN”
+5.2.2 Supplier Selection Screen
+User Actions:
+• Select supplier from list
+• Or add new supplier
+System Response:
+• Loads supplier details
+• Displays pending POs (if any)
+5.2.3 PO Selection Screen (Optional)
+User Actions:
+• Select an existing PO
+• OR continue without PO
+System Response:
+• Pre-fills expected quantities
+5.2.4 GRN Item Entry Screen
+Fields:
+• Product name
+• Batch number
+• MRP
+• Cost Price
+• Expiry date
+• GST%
+• Quantity received
+User Actions:
+• Enter details for each medicine
+• Add items one-by-one
+System Response:
+• Validates expiry
+• Validates cost <= MRP
+• Computes purchase total
+5.2.5 GRN Review Screen
+User Actions:
+• Review all entries
+• Edit items if needed
+• Confirm GRN
+System Response:
+• Creates GRN record
+• Updates supplier outstanding
+5.2.6 Label Printing Screen
+User Actions:
+• Select label size
+• Print QR/Barcode batch labels
+5.2.7 GRN Completion
+System Actions:
+• Updates inventory
+• Adds batches
+• Logs GRN
+5.3 SUPPLIER MANAGEMENT FLOW
+Supplier Flow Overview
+Supplier List → Add Supplier → Enter Details → Save → Link to PO/GRN → Supplier Dashboard
+5.3.1 Supplier List Screen
+User Actions:
+• View all suppliers
+• Search by name or GSTIN
+• Open supplier profile
+5.3.2 Add Supplier Screen
+Fields:
+• Supplier Name
+• GSTIN
+• Address
+• Credit Days
+• Contact Number
+System Response:
+• Validates uniqueness
+• Saves supplier
+5.3.3 Supplier Profile Screen
+Shows:
+• Purchase history
+• Outstanding amount
+• Pending POs
+• GRNs received
+• Contact details
+• Payment history
+5.4 INVENTORY MANAGEMENT FLOW
+Inventory Flow Overview
+Inventory Dashboard → Product List → Batch List → Stock Update → Adjustments → Expiry Alerts → Stock
+Audit
+5.4.1 Inventory Dashboard
+Shows:
+• Total SKUs
+• Total stock value
+• Expiry alerts
+• Low stock list
+5.4.2 Product List Screen
+User can:
+• Search by product
+• Filter by category
+• Sort by expiry/MRP
+5.4.3 Batch List Screen
+For each product:
+• Batch number
+• Expiry
+• Stock quantity
+• MRP
+• GST
+5.4.4 Stock Adjustment Screen
+Flow:
+• Select product
+• Select batch
+• Enter adjustment quantity
+• Select reason (damage, expiry, shrinkage)
+• Manager approval
+5.4.5 Expiry Management Flow
+System auto-generates:
+• Near expiry (30/60/90 days)
+• Expired medicines list
+• Block sale for expired
+5.4.6 Stock Audit Flow
+Flow:
+1. Initiate audit session
+2. Physical count
+3. Enter counts
+4. Variance generated
+5. Manager approves
+6. Inventory updated
+5.5 REPORTS FLOW
+Reports Flow Overview
+Reports Dashboard → Select Report → Apply Filters → Generate View → Export PDF/Excel
+5.5.1 Reports Dashboard
+Displays:
+• Sales Reports
+• GST Report
+• Inventory Report
+• Expiry Report
+• Purchase Report
+• Supplier Ledger
+• Profitability
+5.5.2 Select Report Screen
+User selects:
+• Report Type
+• Time filters
+• Branch (if applicable)
+5.5.3 Generate Report Screen
+System displays:
+• Table view
+• Totals
+• GST summary
+• Drill-down option
+5.5.4 Export Options
+Available formats:
+• PDF
+• Excel
+• CSV
+5.6 STORE & ADMIN FLOW
+Admin Flow Overview
+Admin Dashboard → Store Management → User Management → Global Settings → Logs → Backups
+5.6.1 Admin Dashboard
+Shows:
+• Total stores
+• Total users
+• System alerts
+• Global configuration status
+5.6.2 Store Management Screen
+Admin can:
+• Add store
+• Update store information
+• Assign store managers
+• Activate/deactivate stores
+5.6.3 User Management Screen
+Admin can:
+• Add staff
+• Assign roles
+• Reset password
+• Disable accounts
+5.6.4 Global Settings
+Includes:
+• GST configuration
+• Printer templates
+• Discount rules
+• Prescription policy settings
+5.6.5 Audit Logs Screen
+Admin views:
+• Login logs
+• Inventory change logs
+• Billing logs
+• GRN logs
+• Error logs
+5.6.6 Backup & Restore Screen
+Admin can:
+• Perform full backup
+• Download data sets
+• Run restore operations
+6.1 OVERVIEW OF DEVELOPMENT
+The development shall be executed phases, each contributing a complete, functional, testable, and deployable
+module set.
+Every phase shall undergo:
+• UI/UX development
+• Backend API development
+• Integration
+• QA & UAT
+• Deployment
+• Documentation & Training
+6.2 — CORE POS & INVENTORY (MVP)
+The objective is to deliver a fully functioning Minimum Viable Product (MVP) focusing on the core pharmacy
+operations essential for daily functioning.
+Modules Included:
+1. POS Billing System
+• Product search and barcode scanning
+• Batch selection
+• Cart management
+• GST calculation
+• Discounts and membership options
+• Multi-mode payment system
+• Invoice generation and printing
+• Duplicate printing
+• Hold/resume bills
+2. Product & Batch Master
+• Product creation
+• Salt/Composition entry
+• HSN code setup
+• Batch entry & expiry handling
+3. Basic Inventory System
+• View stock by product and batch
+• Real-time stock deduction on billing
+• Expiry-aware stock tracking
+4. User Authentication & Role Setup
+• Role definitions: Admin, Manager, Pharmacist, Cashier
+• Login/logout and session handling
+5. Basic Reports
+• Daily Sales Report
+• Tax (GST) Summary Report
+Deliverables:
+• Fully functional POS
+• Batch-resolved inventory system
+• Sales & GST reports
+• Printer integration (basic)
+• Complete UAT & Go-Live for single store
+6.3 — PURCHASE, SUPPLIER & GRN MODULE
+Focuses on digitizing the procurement cycle and ensuring structured stock inward.
+Modules Included:
+1. Supplier Management
+• Add/edit supplier
+• GSTIN validation
+• Credit days
+• Supplier ledger
+2. Purchase Order (PO)
+• PO creation
+• Expected quantity entry
+• Price and discount mapping
+• PO status updates
+3. GRN (Goods Received Note)
+• GRN entry against PO or direct
+• Batch creation
+• Cost price & MRP validation
+• Expiry date validation
+• Inventory posting
+4. Label Printing
+• Barcode/QR-based label printing
+• Label template configuration
+5. Inventory Enhancements
+• GRN-based inventory increment
+• Back-dated GRN restrictions
+• Landing cost adjustments
+Deliverables:
+• Supplier purchase cycle digitized
+• GRN workflow structured
+• Batch label printing implemented
+• Inventory accuracy increased
+• Supplier outstanding tracking added
+6.4 — MULTI-STORE, ADMIN & ADVANCED REPORTS
+Expands the PMS to support multi-store operations, enhanced reporting, inter-branch controls, and system-level
+configurations.
+Modules Included:
+1. Multi-Store Functionality
+• Add multiple stores
+• Cross-store access management
+• Centralized admin control
+2. User Management Enhancements
+• Role-based permissions
+• Access level configuration
+• Activity logging
+3. Advanced Reports
+• Inventory Valuation
+• Expiry Projection Reports
+• Profit Analysis Report
+• Branch-wise Sales Comparison
+• Supplier Outstanding Summary
+• GRN Report
+4. Inter-Branch Stock Transfer
+• Transfer requests
+• Batch-level movement
+• Approval workflow
+• In-transit tracking
+5. System Configuration
+• Printer templates
+• Notification preferences
+• Data retention policies
+Deliverables :
+• Enterprise-level multi-store support
+• Admin portal
+• Full report suite
+• Enhanced security & compliance
+6.5 — PRINTING, INTEGRATIONS & ADVANCED ANALYTICS
+The final focuses on application polish, automation, integrations, and analytics-driven features.
+Modules Included:
+1. Advanced Printing
+• Fully customizable invoice templates
+• Advanced label templates
+• Multi-size barcode support
+• PDF invoice mode
+2. API Integrations
+• Payment gateway integration (optional)
+• SMS/WhatsApp alerts
+• External accounting system connection (Tally/Zoho Books)
+3. Advanced Analytics
+• AI-based stock reorder suggestion
+• Expiry risk projection
+• Sales forecasting
+• Customer behavior insights
+Deliverables:
+• Complete professional-grade PMS
+• AI-driven insights
+• Third-party integrations
+7.5 Integration with National Drug Registries
+Example potential integrations:
+• FDA/Drug Controller databases
+• Batch legitimacy verification
+• Recall notifications
+7.6 Loyalty & CRM Expansion
+Advanced customer engagement module:
+• Tiered membership
+• Cashback points
+• Customer segmentation
+• Automated marketing messages
+7.8 Advanced AI & Predictive Intelligence
+Potential future AI-driven enhancements:
+• Auto-reorder stock prediction
+• Supplier performance scoring
+• Seasonal demand forecasting
+• Expiry loss prediction
+• Abnormal stock behavior detection
+7.10 Cloud Scalability & Microservices Architecture
+As system usage scales, PMS may evolve into:
+• Microservices-based architecture
+• Distributed workload support
+• Auto-scaling under heavy load
+G10: Notification & Alerts Engine
+The system shall send automated SMS/WhatsApp/app notifications for:
+• Delivery updates
+• Expiry alerts
+• Low stock reminders
+• Customer refill reminders
+• Payment confirmations
+• GST filing reminders
+• AI insights
+2.4 CUSTOMER REQUIREMENTS (POS)
+C19: Customer Loyalty Program
+The system shall support:
+• Loyalty point earnings
+• Redemption rules
+• Membership tiers
+• Customer lifetime value tracking
+• Point expiry management
+C20: Customer Credit Management
+The system shall:
+• Allow customers to buy on credit
+• Track credit limits
+• Maintain outstanding ledger
+• Generate aging reports
+• Prevent billing if limit exceeded
+C21: Customer Insights Dashboard
+The system shall provide insights such as:
+• Frequently purchased medicines
+• Chronic disease indicators
+• Profit per customer
+• Purchase cycle prediction (using AI)
+C22: Delivery Request from POS
+The cashier can mark a bill for delivery, triggering the delivery workflow.
+R20: Rack & Shelf Management
+The system shall allow:
+• Rack/bin/shelf mapping
+• Product-to-rack linking
+• Location-based pick lists
+• Rack movement history
+• Expiry-based rack optimization
+R21: Financial Accounting Module
+System must include:
+• Cash book
+• Bank book
+• Ledger management
+• Daily cash closing
+• Expense tracking
+• Payment receipt vouchers
+• Bank reconciliation
+• Supplier/Customer outstanding aging
+• Payment mode analytics (cash, UPI, card breakdown)
+R22: Return & Refund Management
+The system must include:
+• Sale return
+• Batch-level reverse posting
+• Refund vs replacement selection
+• Mandatory reason codes
+• Damaged stock classification
+• Supplier return integration
+• Credit note workflows
+R23: HSN Master Module
+The system shall maintain:
+• Central HSN code list
+• Tax slab association
+• Auto application of GST rules
+• HSN versioning
+R24: Government Compliance Registers
+Mandatory registers:
+• Schedule H1 register
+• Narcotics register
+• Expiry disposal challan
+• Sales return challan
+• Purchase return challan
+R25: AI Analytics Engine
+The system must generate:
+• AI-based reorder suggestions
+• AI expiry loss prediction
+• AI margin optimization
+• Non-moving stock analysis
+• Doctor-wise sales prediction
+• Ledger anomaly detection
+2.4 ADMIN REQUIREMENTS
+A11: International Version & Multi-Currency Support
+The admin can configure:
+• Multi-currency
+• Multi-tax logic
+• Local compliance modes
+• Multi-language (future support)
+A12: Token Generation System
+The system shall auto-generate unique tokens for:
+• Distributor purchase
+• Distributor return
+• Medicine store return workflow
+A13: Financial Products Integration 
+Admin can activate external financial services such as:
+• Muthoot Finance loan eligibility
+• Invoice financing
+• Working capital score
+SECTION 3 — UML ANALYSIS MODEL
+New Actors:
+• Delivery Agent
+• Customer Loyalty Engine (system actor)
+• Finance Officer
+New Use Cases:
+UC-08 Delivery Management
+Covers assignment → delivery → OTP confirmation.
+UC-09 Return Management
+Covers batch verification → refund → supplier mapping.
+UC-10 Financial Accounting
+Covers: cash book → ledger → reconciliation.
+UC-11 Loyalty Processing
+Covers rewards → redemption → expiry.
+SECTION 4 — CLASS DIAGRAMS
+Add the following new classes:
+Class: Loyalty
+Attributes: points, tier, expiryDate, earnRate, redeemRate.
+Class: Delivery
+Attributes: agentId, routeId, otp, status.
+Class: Ledger
+Attributes: entryId, type, amount, reference, date.
+Class: HSNMaster
+Attributes: hsnCode, gstRate, category.
+Class: ComplianceRegister
+Attributes: registerType, documentId, linkedInvoice.
+SECTION 5 — DESIGN FLOW
+5.7 Delivery Management Flow
+1. Cashier tags bill for delivery
+2. Manager assigns delivery agent
+3. Agent receives request on app
+4. Customer gets OTP
+5. Agent delivers
+6. System marks as delivered
+7. Delivery report updates
+5.8 Return Management Flow
+1. Select invoice
+2. Select item
+3. Validate batch
+4. Refund/Replace
+5. Update inventory
+6. Update supplier return
+5.9 Financial Transaction Flow
+1. Cash opening
+2. POS billing
+3. Cashbook update
+4. Expenses entry
+5. Day-end closing
+6. Bank reconciliation
+SECTION 6 —
+• Return & replacement module
+• Rack management
+• AI analytics
+• Financial accounting module
+• Compliance registers
+• Advanced dashboards
+SECTION 7 — FUTURE ENHANCEMENTS
+AI Ledger Fraud Detection : Detect unusual patterns.
+Voice Search in POS : Faster medicine lookup.
+Drug Interaction Alerts: Warns staff if two medicines conflict.
