@@ -1,0 +1,40 @@
+const mongoose = require('mongoose');
+
+const SiteSettingsSchema = new mongoose.Schema({
+  key: { type: String, unique: true, required: true, default: 'main' },
+  siteName: { type: String, default: 'PharmaPOS' },
+  tagline: { type: String, default: 'Pharmacy Management System' },
+  logoUrl: { type: String, default: '' },
+  faviconUrl: { type: String, default: '' },
+  primaryColor: { type: String, default: '#3b82f6' },
+  accentColor: { type: String, default: '#8b5cf6' },
+  sidebarColor: { type: String, default: '#0f172a' },
+  pharmacyName: { type: String, default: 'HealthFirst Pharmacy' },
+  pharmacyAddress: { type: String, default: '' },
+  gstin: { type: String, default: '' },
+  drugLicense: { type: String, default: '' },
+  contactEmail: { type: String, default: '' },
+  contactPhone: { type: String, default: '' },
+  currency: { type: String, default: '₹' },
+  currencyCode: { type: String, default: 'INR' },
+  timezone: { type: String, default: 'Asia/Kolkata' },
+  dateFormat: { type: String, default: 'DD/MM/YYYY' },
+  socialLinks: {
+    facebook: { type: String, default: '' },
+    twitter: { type: String, default: '' },
+    instagram: { type: String, default: '' },
+    linkedin: { type: String, default: '' },
+    youtube: { type: String, default: '' },
+  },
+  footerText: { type: String, default: 'PharmaPOS © 2024. All rights reserved.' },
+  maintenanceMode: { type: Boolean, default: false },
+  maintenanceMessage: { type: String, default: 'Site is under maintenance. Please try again later.' },
+  lowStockThreshold: { type: Number, default: 15 },
+  nearExpiryDays: { type: Number, default: 90 },
+  allowGuestCheckout: { type: Boolean, default: false },
+  invoicePrefix: { type: String, default: 'INV' },
+  taxIncluded: { type: Boolean, default: false },
+  updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+}, { timestamps: true });
+
+module.exports = mongoose.model('SiteSettings', SiteSettingsSchema);
