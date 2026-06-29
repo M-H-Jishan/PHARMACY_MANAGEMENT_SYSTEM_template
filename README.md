@@ -62,6 +62,49 @@ A comprehensive, full-stack **Pharmacy Management System** built with the MERN s
   - Activity tracking with last login
   - Role-based permission enforcement
 
+### Phase 2.5 - CMS & Dynamic Admin Panel ✅ COMPLETED
+- **Dynamic Admin Panel** ✅
+  - Dedicated admin interface at `/admin` (dark-themed, separate layout)
+  - Admin dashboard with app stats, CMS module cards, quick actions, site status
+  - Admin-only access control (admin & manager roles)
+  - System config page with server health, API reference, and management shortcuts
+
+- **CMS Page Builder** ✅
+  - Visual page builder with 13 content block types:
+    - Hero Banner, Text Block, Features Grid, Stats Bar, Image, Gallery
+    - FAQ (collapsible), Team Members, Testimonials, Contact Info
+    - Call-to-Action, Divider, Custom HTML
+  - Drag-to-reorder blocks, show/hide toggle per block
+  - Live block editors with inline forms for all data fields
+  - Page templates (default, full-width, centered)
+  - SEO tab with meta title, meta description, and search preview
+  - Page settings tab with publishing, navigation, and template options
+  - Auto-slug generation from page title
+  - Publish/unpublish toggle
+  - Public dynamic page rendering at `/p/:slug`
+
+- **Dynamic Navigation Manager** ✅
+  - Visual navigation builder at `/admin/navigation`
+  - Add, reorder, edit, and delete sidebar nav items
+  - Nested sub-menu support (dropdown children)
+  - Per-item role-based visibility (admin, manager, pharmacist, cashier)
+  - Icon picker (25+ Lucide icons)
+  - Link types: internal, external, CMS page
+  - Show/hide items without deleting
+  - One-click add CMS pages to navigation
+  - Reset to defaults option
+  - Live navigation preview
+  - Dynamic sidebar rendering with dropdowns in main app layout
+
+- **Site Settings** ✅
+  - Full settings page at `/admin/settings` with 4 tabs:
+    - **Branding**: Site name, tagline, logo, favicon, color theme (primary, accent, sidebar), footer text
+    - **Pharmacy Info**: Pharmacy name, GSTIN, drug license, address, currency, timezone, date format, invoice prefix, tax settings, stock thresholds
+    - **Contact & Social**: Email, phone, and social media links (Facebook, Twitter, Instagram, LinkedIn, YouTube)
+    - **System**: Maintenance mode toggle with custom message, inventory rules
+  - Dynamic branding applied across the app (logo, colors, site name in sidebar)
+  - Global `CMSContext` for real-time settings/navigation/page updates
+
 ### Phase 3 - Multi-Store & Advanced Reports 📋
 - Multi-store functionality
 - Inter-branch stock transfers
@@ -186,21 +229,53 @@ A comprehensive, full-stack **Pharmacy Management System** built with the MERN s
 PHARMACY_MANAGEMENT_SYSTEM_template/
 ├── frontend/               # React frontend
 │   ├── src/
-│   │   ├── components/    # Reusable components
+│   │   ├── components/    # Reusable components (Layout with dynamic nav)
 │   │   ├── pages/         # Page components
+│   │   │   └── admin/     # Admin panel pages
+│   │   │       ├── AdminLayout.jsx      # Admin sidebar layout
+│   │   │       ├── AdminDashboard.jsx   # Admin overview
+│   │   │       ├── CMSManager.jsx       # CMS page list
+│   │   │       ├── PageBuilder.jsx      # Visual page builder
+│   │   │       ├── NavigationManager.jsx # Nav menu builder
+│   │   │       ├── SiteSettings.jsx     # Site settings (4 tabs)
+│   │   │       └── SystemConfig.jsx     # System health & config
 │   │   ├── context/       # React context
+│   │   │   ├── AuthContext.jsx  # Authentication
+│   │   │   └── CMSContext.jsx   # CMS settings, nav, pages
 │   │   ├── services/      # API services
 │   │   ├── utils/         # Utility functions
-│   │   └── App.jsx        # Main app component
+│   │   └── App.jsx        # Main app with admin routes
 │   ├── public/
 │   └── package.json
 │
 ├── backend/               # Express backend
 │   ├── src/
 │   │   ├── models/        # Mongoose models
+│   │   │   ├── User.js          # User schema
+│   │   │   ├── Product.js       # Product catalog
+│   │   │   ├── Batch.js         # Batch tracking
+│   │   │   ├── Invoice.js       # Invoicing
+│   │   │   ├── Supplier.js      # Supplier management
+│   │   │   ├── Store.js         # Store management
+│   │   │   ├── Page.js          # CMS dynamic pages
+│   │   │   ├── Navigation.js    # Dynamic navigation menus
+│   │   │   └── SiteSettings.js  # Global site settings
 │   │   ├── routes/        # API routes
+│   │   │   ├── auth.js          # Authentication
+│   │   │   ├── users.js         # User management
+│   │   │   ├── products.js      # Products
+│   │   │   ├── batches.js       # Batches
+│   │   │   ├── inventory.js     # Inventory
+│   │   │   ├── invoices.js      # Invoices
+│   │   │   ├── reports.js       # Reports & analytics
+│   │   │   ├── suppliers.js     # Suppliers
+│   │   │   ├── grn.js           # Goods receipt
+│   │   │   ├── stores.js        # Store management
+│   │   │   ├── cms.js           # CMS pages CRUD
+│   │   │   ├── navigation.js    # Navigation management
+│   │   │   └── siteSettings.js  # Site settings
 │   │   ├── controllers/   # Route controllers
-│   │   ├── middleware/    # Custom middleware
+│   │   ├── middleware/    # Custom middleware (auth, RBAC)
 │   │   ├── utils/         # Helper functions
 │   │   └── server.js      # Entry point
 │   └── package.json
@@ -256,6 +331,24 @@ npm run test:e2e
 
 API documentation is available at `/docs/API.md` or visit `http://localhost:5000/api-docs` when the server is running.
 
+### CMS & Admin Endpoints
+
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| `GET` | `/api/cms/public` | List all published CMS pages | Public |
+| `GET` | `/api/cms/public/:slug` | Get published page by slug | Public |
+| `GET` | `/api/cms` | List all CMS pages (drafts + published) | Admin/Manager |
+| `GET` | `/api/cms/:id` | Get page by ID | Admin/Manager |
+| `POST` | `/api/cms` | Create new CMS page | Admin |
+| `PUT` | `/api/cms/:id` | Update CMS page | Admin |
+| `PATCH` | `/api/cms/:id/publish` | Toggle publish status | Admin |
+| `DELETE` | `/api/cms/:id` | Delete CMS page | Admin |
+| `GET` | `/api/navigation/:name` | Get navigation by name | Public |
+| `PUT` | `/api/navigation/:name` | Update navigation items | Admin |
+| `POST` | `/api/navigation/:name/reset` | Reset navigation to defaults | Admin |
+| `GET` | `/api/site-settings` | Get site settings | Public |
+| `PUT` | `/api/site-settings` | Update site settings | Admin |
+
 ## 🤝 Contributing
 
 This is a prototype for a job application. For the full project:
@@ -298,10 +391,11 @@ This system showcases:
 - **Modern UI/UX** with responsive design
 - **Security implementation** (JWT, RBAC, validation)
 - **Real-world business logic** (GST, inventory, billing)
+- **CMS & dynamic content management** (page builder, navigation manager, site settings)
 - **Production-ready code** quality and structure
 
 ---
 
-**Status**: ✅ **PRODUCTION READY** - All core features implemented and functional
-**Last Updated**: March 2026
+**Status**: ✅ **PRODUCTION READY** - Core features + CMS & Admin Panel implemented and functional
+**Last Updated**: June 2026
 **Demo Ready**: Yes - Perfect for client presentations and job interviews

@@ -40,6 +40,9 @@ app.use('/api/invoices', require('./routes/invoices'));
 app.use('/api/reports', require('./routes/reports'));
 app.use('/api/suppliers', require('./routes/suppliers'));
 app.use('/api/grn', require('./routes/grn'));
+app.use('/api/cms', require('./routes/cms'));
+app.use('/api/navigation', require('./routes/navigation'));
+app.use('/api/site-settings', require('./routes/siteSettings'));
 
 // Health check
 app.get('/health', (req, res) => {

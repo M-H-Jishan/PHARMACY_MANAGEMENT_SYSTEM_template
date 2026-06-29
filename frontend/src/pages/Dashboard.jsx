@@ -8,11 +8,12 @@ import {
 } from 'lucide-react';
 
 export default function Dashboard() {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!isAuthenticated) return;
     const fetchDashboard = async () => {
       try {
         const res = await axios.get('/api/reports/dashboard');
@@ -24,7 +25,7 @@ export default function Dashboard() {
       }
     };
     fetchDashboard();
-  }, []);
+  }, [isAuthenticated]);
 
   if (loading) return <div className="flex items-center justify-center h-64"><div className="h-8 w-8 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin" /></div>;
 
